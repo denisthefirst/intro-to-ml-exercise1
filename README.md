@@ -23,7 +23,7 @@ cd <your-project-folder>
 ### 2. Create and Activate Virtual Environment
 
 #### macOS / Linux
-```bash
+```bashff
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
