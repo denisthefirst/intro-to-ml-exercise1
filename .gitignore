@@ -1,0 +1,68 @@
+# =========================
+# Operating System Files
+# =========================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# =========================
+# Python & Virtual Envs
+# =========================
+# Virtual environments
+venv/
+.venv/
+env/
+.env_python/
+
+# Compiled Python files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# =========================
+# Secrets & Configurations
+# =========================
+# Environment variables (NEVER COMMIT SECRETS)
+.env
+.env.local
+.env.*.local
+
+# =========================
+# IDEs and Editors
+# =========================
+# VS Code
+.vscode/
+
+# JetBrains / PyCharm
+.idea/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# =========================
+# Testing & Logs
+# =========================
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
