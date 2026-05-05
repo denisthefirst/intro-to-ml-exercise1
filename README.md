@@ -1,6 +1,5 @@
 # Project Title
 
-Brief description of what this project does.
 
 ---
 
@@ -23,7 +22,7 @@ cd <your-project-folder>
 ### 2. Create and Activate Virtual Environment
 
 #### macOS / Linux
-```bashff
+```bashfff
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
