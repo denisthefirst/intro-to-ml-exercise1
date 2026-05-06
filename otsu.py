@@ -13,46 +13,55 @@ def load_image(path: str) -> np.ndarray:
 
 def compute_histogram(image: np.ndarray) -> np.ndarray:
     """Compute a grayscale histogram with 256 bins."""
-    # ToDo: Implement actual histogram calculation.
-    histogram = np.zeros(0)
+    # np.histogram returns tuple (hist - frequency counts, bin_edges - edges of the bins)
+    histogram, _ = np.histogram(image, bins=256, range=(0, 256))
     return histogram
 
 
 def p_helper(prob: np.ndarray, theta: int) -> tuple[float, float]:
     """Compute class probabilities p0 and p1 for threshold theta."""
-    # ToDo: Implement actual probability computation.
-    p0 = 0.0
-    p1 = 0.0
+    p0 = np.sum(prob[:theta + 1])
+    p1 = np.sum(prob[theta + 1:])
     return p0, p1
 
 
 def mu_helper(prob: np.ndarray, theta: int, p0: float, p1: float) -> tuple[float, float]:
     """Compute class means mu0 and mu1 for threshold theta."""
-    # ToDo: Implement actual mean computation.
-    mu0 = 0.0
-    mu1 = 0.0
+    if p0 == 0 or p1 == 0:
+        mu0, mu1 = 0, 0
+    else:
+        mu0 = 1 / p0 * np.sum(np.arange(theta + 1) * prob[:theta + 1])
+        mu1 = 1 / p1 * np.sum(np.arange(theta + 1, len(prob)) * prob[theta + 1:])
     return mu0, mu1
 
 
 def otsu_threshold(histogram: np.ndarray) -> int:
     """Compute Otsu's threshold from a histogram."""
-    # ToDo: Implement full Otsu algorithm.
-    prob = histogram.astype(np.float64)  # later normalize
+    prob = histogram.astype(np.float64) # later normalize
+    prob_norm = prob / np.sum(histogram)
     max_variance = 0.0
     best_threshold = 0
+
+    for theta in range(256):
+        p0, p1 = p_helper(prob_norm, theta)
+        mu0, mu1 = mu_helper(prob_norm, theta, p0, p1)
+        between_cls_var = p0 * p1 * (mu1 - mu0) ** 2
+        if max_variance < between_cls_var:
+            max_variance = between_cls_var
+            best_threshold = theta
+
     return int(best_threshold)
 
 
 def otsu_binarize(image: np.ndarray) -> tuple[np.ndarray, int]:
     """Binarize an image using Otsu's threshold."""
-    # ToDo: Combine the helper functions to produce the binarized image.
-    theta = 0
-    binarized = np.zeros(0)
+    histogram = compute_histogram(image)
+    theta = otsu_threshold(histogram)
+    binarized, theta = custom_binarization(image, theta)
     return binarized, theta
 
 
 def custom_binarization(image: np.ndarray, theta: int) -> tuple[np.ndarray, int]:
-    # ToDo: Binarize the image with a custom value.
     new_image = np.where(image > theta, 255, 0).astype(np.uint8)
     return new_image, theta
 
