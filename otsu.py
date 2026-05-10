@@ -14,7 +14,10 @@ def load_image(path: str) -> np.ndarray:
 def compute_histogram(image: np.ndarray) -> np.ndarray:
     """Compute a grayscale histogram with 256 bins."""
     # np.histogram returns tuple (hist - frequency counts, bin_edges - edges of the bins)
-    histogram, _ = np.histogram(image, bins=256, range=(0, 256))
+    histogram = np.zeros(256)
+    flatten = image.flatten()
+    for px in flatten:
+        histogram[px] += 1
     return histogram
 
 
